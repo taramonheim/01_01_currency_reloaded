@@ -25,7 +25,7 @@
  *  
  *  Das Script soll mindestens drei verschiedene Währungen in beide Richtungen unterstützen
  */
- 
+
 
 let args = process.argv.slice(2);
 
@@ -38,3 +38,38 @@ if (args.length < 3) {
   originalCurrency = args[1];
   targetCurrency = args[2];
 }
+//Variable Output deklarieren
+let output;
+
+//Faktoren EUR 
+const currencys = {
+  EUR : 1,
+  USD : 1.11,
+  CZK : 25.58,
+  BWP : 12.04,
+  AUD : 1.63,
+  CNY : 7.78,
+  TRY : 6.34,
+  ZAR : 16.33
+}
+
+const amountInEUR = amount / currencys[originalCurrency];
+
+output = amountInEUR * currencys[targetCurrency];
+
+//Ausgabe
+
+console.log(' Das Ergebnis ist = ' + output + ' ' + targetCurrency);
+
+/*
+const eur_usd = 1.11;
+const eur_czk = 25.58;
+const eur_bwp = 12.04;
+const eur_aud = 1.63;
+const eur_cny = 7.78;
+const eur_try = 6.34;
+const eur_zar = 16.33;
+*/
+
+
+
