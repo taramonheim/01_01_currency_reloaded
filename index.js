@@ -1,6 +1,6 @@
 /*
  * CURRENCY CONVERTER RELOADED
- * Author: <your name here>
+ * Author: <Tara Monheim>
  * ---------------------------
  *
  * This converts currencies...somehow.
@@ -25,6 +25,7 @@
  *  
  *  Das Script soll mindestens drei verschiedene Währungen in beide Richtungen unterstützen
  */
+ 
 
 let args = process.argv.slice(2);
 
