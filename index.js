@@ -43,23 +43,23 @@ let output;
 
 //Faktoren EUR 
 const currencys = {
-  EUR : 1,
-  USD : 1.11,
-  CZK : 25.58,
-  BWP : 12.04,
-  AUD : 1.63,
-  CNY : 7.78,
-  TRY : 6.34,
-  ZAR : 16.33
+  EUR: {rate: 1,Symbol: '€'},
+  USD: {rate: 1.11, Symbol: '$'},
+  CZK: {rate: 25.58, Symbol: 'Kč'},
+  BWP: {rate: 12.04, Symbol: 'r' },
+  AUD: {rate: 1.63, Symbol: 'AU$'},
+  CNY: {rate: 7.78, Symbol: 'CN¥'},
+  TRY: {rate: 6.34, Symbol: '₺'},
+  ZAR: {rate: 16.33, Symbol: 'ZAR'}
 }
 
-const amountInEUR = amount / currencys[originalCurrency];
+const amountInEUR = amount / currencys[originalCurrency].rate;
 
-output = amountInEUR * currencys[targetCurrency];
+output = amountInEUR * currencys[targetCurrency].rate;
 
 //Ausgabe
 
-console.log(' Das Ergebnis ist = ' + output + ' ' + targetCurrency);
+console.log(' Das Ergebnis ist = ' + output + ' ' + currencys[targetCurrency].Symbol);
 
 /*
 const eur_usd = 1.11;
@@ -70,6 +70,3 @@ const eur_cny = 7.78;
 const eur_try = 6.34;
 const eur_zar = 16.33;
 */
-
-
-
