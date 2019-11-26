@@ -1,3 +1,5 @@
+const request = require('request');
+
 /*
  * CURRENCY CONVERTER RELOADED
  * Author: <Tara Monheim>
@@ -42,24 +44,86 @@ if (args.length < 3) {
 let output;
 
 //Faktoren EUR 
-const currencys = {
-  EUR: {rate: 1,Symbol: '€'},
-  USD: {rate: 1.11, Symbol: '$'},
-  CZK: {rate: 25.58, Symbol: 'Kč'},
-  BWP: {rate: 12.04, Symbol: 'r' },
-  AUD: {rate: 1.63, Symbol: 'AU$'},
-  CNY: {rate: 7.78, Symbol: 'CN¥'},
-  TRY: {rate: 6.34, Symbol: '₺'},
-  ZAR: {rate: 16.33, Symbol: 'ZAR'}
+const currencies = {
+  EUR: {
+    rate: 1,
+    Symbol: '€'
+  },
+  USD: {
+    rate: 1.11,
+    Symbol: '$'
+  },
+  CZK: {
+    rate: 25.58,
+    Symbol: 'Kč'
+  },
+  BWP: {
+    rate: 12.04,
+    Symbol: 'r'
+  },
+  AUD: {
+    rate: 1.6242,
+    Symbol: 'AU$'
+  },
+  CNY: {
+    rate: 7.78,
+    Symbol: 'CN¥'
+  },
+  TRY: {
+    rate: 6.34,
+    Symbol: '₺'
+  },
+  ZAR: {
+    rate: 16.33,
+    Symbol: 'ZAR'
+  }
 }
 
-const amountInEUR = amount / currencys[originalCurrency].rate;
 
-output = amountInEUR * currencys[targetCurrency].rate;
+request('https://api.exchangeratesapi.io/latest', function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  //console.log('statusCode:', response && response.statusCode);*
+  //console.log('body:', body); // Print the response status code if a response was received*
+  let bodyObj = JSON.parse(body);
+  //console.log(bodyObj);*
+
+  //let rate = bodyObj.rate;
+
+  //for (let field in bodyObj.rates) {
+  //console.log(field);*
+  //console.log(rate[field]);
+  //try {
+  //try probiert die Schleife durchzulaufen 
+  //man muss bei dem try auch ein catch haben 
+  for (let field in bodyObj.rates) {
+    if (currencies.hasOwnProperty(field)) {
+      currencies[field].rate = bodyObj.rates[field];
+    } else if (currencies.hasOwnProperty(field) == false) {
+      currencies[field] = {};
+      currencies[field].rate = bodyObj.rates[field];
+    }
+    //console.log(field);
+    //console.log(bodyObj.rates[field])
+  }
+  const amountInEUR = amount / currencies[originalCurrency].rate;
+
+  output = amountInEUR * currencies[targetCurrency].rate;
+
+  console.log(' Das Ergebnis ist = ' + output + ' ' + currencies[targetCurrency].Symbol);
+});
+
+// let output = 1 / currencies[originalCurrency].value * [amount] * currencies[targetCurrency].value
+// console.log('Das Ergebnis ist: ' + output + currencies[targetCurrency].symbol);
+
+
+//});
+
+
+
+
 
 //Ausgabe
 
-console.log(' Das Ergebnis ist = ' + output + ' ' + currencys[targetCurrency].Symbol);
 
 /*
 const eur_usd = 1.11;
